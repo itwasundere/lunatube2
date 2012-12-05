@@ -1,0 +1,84 @@
+var m = require('./models.js');
+var r = new m.video({vidid:'j3-Mq-M0X8w'});
+
+var ws = require('./lib/ws.js');
+
+var db = require('./lib/database.js');
+var a = new db.models.video({id:'50b99558c15d630000000001'}); a.fetch();
+
+var a = new db.video();
+bah.findOne({_id:'50b864076040cf0000000001'},function(err,doc){console.log(doc)});
+
+db.dbm.foo.find({_id: db.dbm.boo},function(err,doc){console.log(doc);});
+
+
+connect to the dataserver
+	tell it your room id
+	get login status
+	get playlist, playerstate
+	get chat state
+
+a list of commands i can send:
+
+once per five seconds
+	page
+		player status
+		playlist status
+		userlist, including mod and owner info
+		chat history, last 20 messages
+
+once per second
+	player status
+	mod commands
+
+four times a second
+	post a message
+
+violate timed rules, get placed on kicklist
+if refresh page or send any information, rejected with message for 10 seconds
+
+status on top
+easily changeable
+add links, etc.
+able to put feeds on top
+
+streaming livestream and justin tv
+playing youtube videos
+chatting
+
+moderators
+mute
+control playback
+modify playlists
+
+wow i'm stupid
+the stream is completely independent of the chat
+don't bunch them together if you don't have to
+well, actually, you can get vids from the chat sooo
+
+logging in/out
+
+player controls
+  disable player
+  pause / play
+  skip
+  see what's up next
+  adjust volume
+
+playlists
+  hide all
+  queue
+    unlock
+  playlist
+    add
+    remove
+    move
+    import
+    clear
+
+
+    websocket server
+
+    client -cookies.session-> server
+    server
+

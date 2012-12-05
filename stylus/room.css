@@ -1,0 +1,65 @@
+body
+	padding 0
+	margin 0
+	background-color _dark
+	font-family helvetica neue, arial
+	color _white
+	font-size 14px
+div
+	overflow: auto
+	cursor default
+input
+	margin 0
+	padding 0
+	border 0
+	outline none
+	font-family helvetica neue, arial
+	font-size 14px
+
+#header
+	width 1280px
+	margin 16px auto
+	margin-top 0
+	background-color _darkest
+	height 48px
+	#title
+		float left
+		color white
+		height 32px
+		font-size 30px
+		padding-left 16px
+		padding-top 4px
+		overflow hidden
+	#login
+		float right
+		input, #login_btn, #register_btn
+			display inline-block
+			margin 8px
+			margin-left 0
+			padding 8px
+		input
+			height 32px
+		#login_btn, #register_btn
+			background-color _dark
+
+#ticker
+	width 1280px
+	margin 0 auto
+	background-color _white
+	#title, #link
+		float left
+		margin 4px
+	#title
+		color _highlight
+	#link
+		color _dark
+
+#theater
+	background-color _darkest
+	width 1280px
+	height 480px
+	margin 0 auto
+	#player
+		width 853px
+		background-color _light
+		height 480px
