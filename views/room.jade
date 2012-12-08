@@ -3,40 +3,120 @@ html
 		include head
 		link(rel='stylesheet', type='text/css', href='/static/room/skin/luna.css')
 	body
+		#templates
+			script#video(type="template")
+				#video
+					img#thumbnail(src="http://i2.ytimg.com/vi/[[vidid]]/default.jpg")
+					#info
+						#title [[title]]
+						#author [[uploader]]
+						#time [[timetext]]
+						#buttons
+							#play play
+							#remove remove
 		#header
-			#title lunatube.tv
+			#title
+				img(src="")
 			#links
 			#login
-				input#username(placeholder="username")
-				input#password(placeholder="password",type="password")
+				div
+					input#username(placeholder="username")
+				div
+					input#password(placeholder="password",type="password")
 				#login_btn login
 				#register_btn register
-		#ticker
-			#title mlpforums \\
-			#link new news huehuehue
-		#theater
-			#player
-				#stage
-				#controls
-			#chat
-				#banner
-					#title
-					#buttons
-						#cams
-						#users
-				#userlist
-				#messages
-				#input
-		#playlist
-			#banner
-				#tabs
-					#queue
+		#main
+			#topbar banner wallpaper
+			#theater
+				#player
+					#stage
+					#controls
+						#playlist_btn
+						#play
+						#scrobbler
+							#playhead
+						#next
+						#settings
 					#playlist
-				#buttons
-					#add
-					#import
-					#clear
-			#videos
-		#footer
+						#tabs
+							#queue_tab Queue
+							#playlist_tab Playlist
+						#middle
+							#videos
+								#video
+									img#thumbnail(src="http://i2.ytimg.com/vi/5z1rdahvSbs/default.jpg")
+									#info
+										#title Sofas and Quills
+										#author SoGreatAndPowerful
+										#time 5:03
+								#video.playing
+									img#thumbnail(src="http://i2.ytimg.com/vi/5z1rdahvSbs/default.jpg")
+									#info
+										#title Sofas and Quills
+										#author SoGreatAndPowerful
+										#time 5:03
+										#buttons
+											#play play
+											#remove remove
+							#controls
+								#add add
+								#clear_btn clear
+								#import import
+						#confirm
+							#save Save
+							#cancel Cancel
+				#chat
+					#banner
+						#title Chat
+						#buttons
+							#cams Cams
+							#users Users
+					#userlist
+					#messages
+						#message
+							#avatar
+								img(src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32")
+							#info
+								div
+									#username PleaseStandBy
+									#timestamp 17:30
+								#content Cu sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+						#message
+							#avatar
+								img(src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32")
+							#info
+								div
+									#username PleaseStandBy
+									#timestamp 17:30
+								#content Donec id elit non mi porta gravida at eget metus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.ridiculus mus.
+						#youtube
+							img#thumbnail(src="http://i2.ytimg.com/vi/5z1rdahvSbs/default.jpg")
+							#info
+								#title Sofas and Quills
+								#artist PleaseStandBy
+								#time 5:30
+								#buttons
+									#play_btn play
+									#queue_btn queue
+									#playlist_btn playlist
+
+						#message
+							#avatar
+								img(src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32")
+							#info
+								div
+									#username PleaseStandBy
+									#timestamp 17:30
+								#content Cu sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+						#imgur
+							#thumbnail
+								img(src="http://i.imgur.com/ThvM2.gif")
+
+					#input
+						#avatar
+							img(src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32")
+						input#chat(placeholder="send a chat message")
+			#bottombar bottom img
+			#footer
 
 

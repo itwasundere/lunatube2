@@ -22,6 +22,7 @@ yt: {
 				duration: parseInt(data.entry.media$group.yt$duration.seconds),
 				thumb: data.entry.media$group.media$thumbnail[0].url
 			});
+			video.trigger('ready');
 		});
 	}
 },

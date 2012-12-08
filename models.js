@@ -72,7 +72,7 @@ room: {
 		this.set('queue', new models.videolist());
 		this.playlist = new models.videolist()
 		this.playlist.fetch({
-			params: { playlist: this.get('playlist') }, 
+			params: { playlist: this.get('playlist_id') }, 
 			success: function() {
 				self.get('player').on('end', function(){
 					self.advance(); });

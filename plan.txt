@@ -1,16 +1,6 @@
-var m = require('./models.js');
-var r = new m.video({vidid:'j3-Mq-M0X8w'});
-
-var ws = require('./lib/ws.js');
-
-var db = require('./lib/database.js');
-var a = new db.models.video({id:'50b99558c15d630000000001'}); a.fetch();
-
-var a = new db.video();
-bah.findOne({_id:'50b864076040cf0000000001'},function(err,doc){console.log(doc)});
-
-db.dbm.foo.find({_id: db.dbm.boo},function(err,doc){console.log(doc);});
-
+preferences
+  video quality -- auto option
+  
 
 connect to the dataserver
 	tell it your room id

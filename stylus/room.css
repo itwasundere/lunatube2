@@ -1,65 +1,206 @@
-body
-	padding 0
-	margin 0
-	background-color _dark
+font()
 	font-family helvetica neue, arial
-	color _white
 	font-size 14px
+	color _white
+select(val)
+	-webkit-touch-callout: val;
+	-webkit-user-select: val;
+	-khtml-user-select: val;
+	-moz-user-select: val;
+	-ms-user-select: val;
+	user-select: val;
 div
-	overflow: auto
-	cursor default
+	overflow hidden
+	position relative
+	select(none)
 input
 	margin 0
 	padding 0
 	border 0
 	outline none
-	font-family helvetica neue, arial
-	font-size 14px
+	font()
+	color _black
+body
+	font()
+	background-color _dark
+	cursor default
+	margin 0
+#main
+	width 1280px
+	height 672px
+	margin 0 auto
+
+#topbar, #bottombar
+	background-color _black
+	height 96px
 
 #header
-	width 1280px
-	margin 16px auto
-	margin-top 0
-	background-color _darkest
 	height 48px
+	background-color _darkest
 	#title
-		float left
-		color white
-		height 32px
-		font-size 30px
-		padding-left 16px
-		padding-top 4px
-		overflow hidden
+		float: left
+		img
+			height 40px
+			padding 4px
+	#links
+		float: left
 	#login
-		float right
-		input, #login_btn, #register_btn
-			display inline-block
+		float: right
+		div
+			float left
 			margin 8px
 			margin-left 0
-			padding 8px
 		input
+			padding 8px
 			height 32px
 		#login_btn, #register_btn
+			padding 8px
+			height 16px
 			background-color _dark
-
-#ticker
-	width 1280px
-	margin 0 auto
-	background-color _white
-	#title, #link
-		float left
-		margin 4px
-	#title
-		color _highlight
-	#link
-		color _dark
-
+			&:hover
+				background-color _highlight
+				cursor pointer
 #theater
-	background-color _darkest
-	width 1280px
 	height 480px
-	margin 0 auto
+	background-color _darkest
 	#player
+		float left
 		width 853px
-		background-color _light
 		height 480px
+		background-color _lightest
+	#chat
+		float left
+		width 427px
+		height 480px
+		#banner
+			#title
+				margin 16px
+				float left
+			#buttons
+				float right
+				div
+					float left
+					height 16px
+					padding 16px
+					&:hover
+						background-color _highlight
+						cursor pointer
+		#messages
+			height 384px
+			background-color _white
+			color _black
+		#input
+			#avatar
+				float left
+				margin 8px
+				height 32px
+				width 32px
+			input
+				float left
+				width 371px
+				margin 8px
+				margin-left 0px
+				padding 8px
+				height 32px
+
+#playlist
+	position absolute
+	background-color white
+	height 100%
+	width 370px
+	overflow auto
+	#tabs, #confirm
+		background-color _darkest
+		height 48px
+		#queue_tab, #playlist_tab, #cancel, #save
+			float left
+			width 50%
+			height 100%
+			text-align center
+			padding 15px 0
+			&:hover
+				background-color _highlight
+				cursor pointer
+	#middle
+		height 384px
+		#thumbnail img
+			height 100%
+			width 100%
+		#controls
+			text-align center
+			div
+				display inline-block
+				background-color _darkest
+				padding 4px 10px
+				margin 10px
+				margin-left 0px
+				&:hover
+					background-color _highlight
+					cursor pointer
+		
+#message
+	#avatar
+		float left
+		width 32px
+		height 32px
+		margin 8px
+	#info
+		float left
+		width 80%
+		margin 8px
+		margin-left 0px
+		#username
+			float:left
+			font-weight bold
+			select(text)
+		#timestamp
+			margin-left 10px
+			float:left
+			select(text)
+		#content
+			select(text)
+
+#youtube, #video
+	color _white
+	font-size 12px
+	&.playing
+		#info
+			background-color _lightest
+	#thumbnail
+		height 63px
+		width 84px
+		float left
+		cursor pointer
+	#info
+		width 250px
+		float left
+		padding 8px
+		height 47px
+		background-color _dark
+		text-align left
+		cursor move
+		#title
+			height 18px
+			font-weight bold
+			overflow hidden
+		#buttons
+			visibility hidden
+			position absolute
+			bottom 0
+			right 0
+			background-color _darkest
+			div
+				float left
+				padding 5px 8px
+				&:hover
+					background-color _highlight
+					cursor pointer
+
+			
+#imgur
+	max-height 63px
+	max-width 350px
+	overflow hidden
+	#thumbnail
+		float left
+		max-width 350px

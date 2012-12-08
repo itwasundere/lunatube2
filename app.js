@@ -19,6 +19,21 @@ var Session = Backbone.Model.extend({
 		room: null,
 		socket: null
 	},
+	initialize: function() {
+		var self = this;
+		var socket = this.get('socket');
+		this.bind_event('add', function(vidid){
+			var room = self.get('room');
+			var video = new models.video({
+				vidid: vidid,
+				playlist: room.get('playlist_id')
+			});
+			video.on('ready', function(){
+				video.save();
+				room.playlist.add(video);
+			});
+		});
+	},
 	bind_event: function(event, callback, options) {
 		var time = options? options.time : 100;
 		var socket = this.get('socket'), self = this;
@@ -46,7 +61,7 @@ io.sockets.on('connection', function (socket) {
 	var session = new Session({socket: socket});
 	session.bind_event('join', function(data){
 		if (!data) return;
-		var cookie = data.cookie, roomid = data.room;
+		var cookie = data.cookie, roomid = data.roomid;
 
 		// validate user
 		var user = new models.user();
@@ -60,15 +75,19 @@ io.sockets.on('connection', function (socket) {
 		// validate room
 		var room = rooms.get(roomid);
 		if (!room) return;
-		console.log(room);
 		room.join(user);
 		
+		console.log('foo');
 		session.set({ room: room, user: user });
 		socket.emit('join', { 
 			cookie: cookie, 
 			user: user.toJSON(),
 			room: room.toJSON()
 		});
+		socket.emit('playlist', room.playlist.toJSON());
+		room.playlist.bind('add delete reset', function(){
+			socket.emit('playlist', this.toJSON()); });
+		
 	});
 	session.bind_event('disconnect', function(){
 		if (session.get('room'))

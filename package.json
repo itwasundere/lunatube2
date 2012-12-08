@@ -7,7 +7,11 @@
 	},
 	"dependencies": {
 		"express":"",
+		"backbone":"",
 		"jade":"",
-		"stylus":""
+		"jquery":"",
+		"stylus":"",
+		"mongoose":"",
+		"socket.io":""
 	}
 }

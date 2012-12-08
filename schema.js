@@ -10,7 +10,7 @@ module.exports = {
 		userlist: Array,
 		modlist: Array,
 		mutelist: Array,
-		playlist: String
+		playlist_id: String
 	},
 	video: {
 		duration: Number,

@@ -1,30 +1,30 @@
-function now() { return Math.floor((new Date()).getTime()/1000) }
+var Message = Backbone.Model.extend({
 
-var models = {
+});
 
-Message: Backbone.Model.extend({
+var User = Backbone.Model.extend({
 
-}),
+});
 
-User: Backbone.Model.extend({
-
-}),
-
-Room: Backbone.Model.extend({
+var Room = Backbone.Model.extend({
 	defaults: {
-		player: new YoutubePlayer(),
-		queue: new VideoList(),
-		playlist: new VideoList(),
-		users: new Backbone.Collection(),
-		messages: new Backbone.Collection(),
 		mods: [],
 		mutes: [],
 		hides: [],
 		owner: ''
+	},
+	initialize: function() {
+		this.set({
+			player: new YoutubePlayer(),
+			queue: new VideoList(),
+			playlist: new VideoList(),
+			users: new Backbone.Collection(),
+			messages: new Backbone.Collection()
+		});
 	}
-}),
+});
 
-YoutubePlayer: Backbone.Model.extend({
+var YoutubePlayer = Backbone.Model.extend({
 	defaults: {
 		playing: false,
 		video: null
@@ -55,14 +55,16 @@ YoutubePlayer: Backbone.Model.extend({
 		else
 			this.start = now();
 	}
-}),
+});
 
-Video: Backbone.Collection.extend({
+var Video = Backbone.Model.extend({
 	defaults: {
 		vidid: '',
 		duration: 0,
 		title: '',
-		uploader: ''
+		uploader: '',
+		playlist: '',
+		thumb: ''
 	},
 	fetchInfo: function() {
 		var url = this.get('vidid');
@@ -82,15 +84,15 @@ Video: Backbone.Collection.extend({
 		});
 	},
 	time: function() {
-		var seconds = this.get('time');
+		var seconds = this.get('duration');
 		var minutes = Math.floor(seconds/60);
 		var mod_seconds = seconds%60+'';
 		if (mod_seconds.length != 2) mod_seconds = '0'+mod_seconds;
 		return minutes+':'+mod_seconds;
 	}
-}),
+});
 
-VideoList: Backbone.Collection.extend({
+var VideoList = Backbone.Collection.extend({
 	model: Video,
 	after: function(video) {
 		video = this.get(video.id);
@@ -99,6 +101,4 @@ VideoList: Backbone.Collection.extend({
 		if (index >= this.length) index = 0;
 		return this.at(index);
 	}
-}),
-
-};
+});
