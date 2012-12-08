@@ -1,3 +1,45 @@
+var YoutubePlayerView = Backbone.View.extend({
+	initialize: function() {
+		this.$el.hover(function(){
+			var ctrl = $(this).find('#controls');
+			ctrl.css('visibility','visible');
+		},function(){
+			var ctrl = $(this).find('#controls');
+			ctrl.css('visibility','hidden');
+		});
+		this.playing = true;
+		var self = this;
+		window.onYouTubeIframeAPIReady = function(){
+			self.player = new YT.Player('player', {
+				height: '480', width: '853',
+				events: {
+					'onStateChange': function(){ self.onstate() },
+				}
+			});
+		};
+		$('head').append('<script src="//www.youtube.com/iframe_api">');
+	},
+	onstate: function() {
+		var state = this.player.getPlayerState();
+		if (state == 1 && !this.playing) {
+			this.playing = true;
+			this.trigger('play');
+		} else if (state == 2 && this.playing) {
+			this.playing = false;
+			this.trigger('pause');
+		} else if (state == 0) {
+			this.playing = true;
+			this.trigger('end');
+		}
+	},
+	video: function(video) {
+		this.player.loadVideoById(video.get('vidid'));
+	},
+	render: function(){
+		
+	}
+});
+
 var PlaylistView = Backbone.View.extend({
 	initialize: function(){
 		var self = this;

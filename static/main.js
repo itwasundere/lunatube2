@@ -38,4 +38,10 @@ $(document).ready(function(){
 	playlist.on('add',function(vidid){
 		socket.emit('add', vidid);
 	});
+	window.player = new YoutubePlayerView({
+		el: $('#player')
+	});
+	player.on('play pause end', function(){
+		socket.emit('play', player.playing);
+	});
 });

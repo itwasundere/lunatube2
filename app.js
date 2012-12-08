@@ -33,6 +33,14 @@ var Session = Backbone.Model.extend({
 				room.playlist.add(video);
 			});
 		});
+		this.bind_event('play', function(playing){
+			var player = room.get('player');
+			if (player.get('playing') != playing)
+				player.toggle();
+		}, {time: 0});
+		this.bind_event('time', function(playing){
+			socket.emit('time',room.get('player').time());
+		});
 	},
 	bind_event: function(event, callback, options) {
 		var time = options? options.time : 100;

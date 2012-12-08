@@ -68,6 +68,26 @@ body
 		width 853px
 		height 480px
 		background-color _lightest
+		#controls
+			visibility hidden
+			position absolute
+			left 0px
+			bottom 0px
+			.btn, #scrobbler
+				padding-top 10px
+				float left
+				height 24px
+				&:hover
+					cursor pointer
+			.btn
+				background-color _black
+				text-align center
+				width 75px
+				&:hover
+					background-color _highlight
+			#scrobbler
+				width 553px
+				background-color _darkest
 	#chat
 		float left
 		width 427px
@@ -104,6 +124,7 @@ body
 				height 32px
 
 #playlist
+	visibility hidden
 	position absolute
 	background-color white
 	height 100%
