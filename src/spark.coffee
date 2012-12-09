@@ -31,6 +31,7 @@ globals.resolve = (id,type)->
   cache[id] = new models[type]({_id: id})
 
 gen_class = (name, schema)->
+  schema = {} if not schema
   attrs = {}
   for link of schema.links
     attrs['_'+link] = null

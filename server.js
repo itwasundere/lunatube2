@@ -16,15 +16,16 @@ app.get('/r/:id', function(req, res){
 	res.render('room.jade');
 });
 
-var themes_name = __dirname + '/res/themes.yaml';
+var themes_name = __dirname+'/res/themes.yaml';
 var themes = yaml.load(fs.readFileSync(themes_name, 'utf8'));
 app.get('/static/room/skin/:theme.css', function(req, res){
-	var stylesheet = __dirname + '/stylus/room.css';
+	var stylesheet = __dirname+'/stylus/room.css';
 	var theme = themes[req.params.theme] || themes.default;
 	var room = stylus(fs.readFileSync(stylesheet, 'utf8'));
 	for(key in theme)
 		room.define('_'+key, new stylus.nodes.Literal('#'+theme[key]));
 	room.render(function(err,css){
+		res.writeHead(200, {'Content-Type': 'text/css'});
 		res.end(css);
 	});
 });
