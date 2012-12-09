@@ -33,11 +33,9 @@ var YoutubePlayerView = Backbone.View.extend({
 		}
 	},
 	video: function(video) {
-		this.player.loadVideoById(video.get('vidid'));
+		if (video && video.get)
+			this.player.loadVideoById(video.get('vidid'));
 	},
-	render: function(){
-		
-	}
 });
 
 var PlaylistView = Backbone.View.extend({

@@ -44,4 +44,5 @@ $(document).ready(function(){
 	player.on('play pause end', function(){
 		socket.emit('play', player.playing);
 	});
+	player.video(room.get('current'));
 });

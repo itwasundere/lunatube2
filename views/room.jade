@@ -1,6 +1,15 @@
 html
 	head
-		include head
+		script(type="text/javascript", src="/static/vender/require.js")
+		script(type="text/javascript")
+			requirejs.config({ baseUrl: '/static' });
+			paths: { vender: '/vender' }
+			requirejs([
+				'vender/jquery',
+				'vender/socket.io',
+				'vender/js-yaml.min',
+				'test'
+			], function(){})
 		link(rel='stylesheet', type='text/css', href='/static/room/skin/luna.css')
 	body
 		#templates
