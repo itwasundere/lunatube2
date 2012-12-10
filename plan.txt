@@ -1,3 +1,11 @@
+var mongo = require('./lib/mongo')
+schemas_name = 'res/schema.yaml';
+schemas = require('js-yaml').load(require('fs').readFileSync(schemas_name, 'utf8'));
+mongo.init(schemas);
+
+coffee -wo static/ -c src/*.coffee
+coffee -wo -c src/app.coffee
+
 preferences
   video quality -- auto option
   

@@ -1,6 +1,8 @@
 var io = require('socket.io').listen(8081);
 var crypto = require('crypto');
-var Backbone = require('backbone');
+var spark = require('./lib/spark');
+
+var random = function() { return crypto.randomBytes(8).toString('hex'); };
 
 var rooms;
 var models = require('./models.js');
@@ -9,7 +11,6 @@ models.ready(function(){
 	rooms.fetch();
 });
 
-var random = function() { return crypto.randomBytes(8).toString('hex'); };
 var cookies = {};
 
 var Session = Backbone.Model.extend({

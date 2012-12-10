@@ -7,7 +7,7 @@ window.Player = class extends models.view
 				height: '480', width: '853',
 				events: { 'onStateChange': ->self.onstate() }
 			};
-		$('head').append('<script src="//www.youtube.com/iframe_api">');
+		###$('head').append('<script src="//www.youtube.com/iframe_api">');###
 	render: ->
 		el = this.get('el')
 		el.html('foo')

@@ -1,4 +1,9 @@
-globals = window || module.exports
+if (typeof window != "undefined")
+  globals = window || module.exports
+else
+  globals = module.exports
+  crypto = require 'crypto'
+
 
 dev = "AI39si5Us3iYwmRdK0wa2Qf2P9eV-Z8tbjogUWw1B4JQUs
 191PgYNJChEKEooOq6ykQzhywLEBA9WxuKphpWUoCRA7S7jeLi5w"
@@ -10,6 +15,16 @@ globals.time = (seconds) ->
   if (mod_seconds.length != 2) 
     mod_seconds = '0'+mod_seconds;
   minutes+':'+mod_seconds;
+
+globals.get_cookie = (k) ->
+  c = document.cookie
+  for val in c.split ';'
+    idx = c.indexOf '='
+    key = val.substr 0, idx
+    return val.substr idx+1 if `key == k`
+
+globals.set_cookie = (k,v) ->
+  document.cookie = k+'='+v
 
 globals.get_after = (str,substr,len)->
 	loc = str.indexOf substr
@@ -35,3 +50,25 @@ globals.info = (vidid, callback)->
       duration: parseInt(data.entry.media$group.yt$duration.seconds),
       thumb: data.entry.media$group.media$thumbnail[0].url
     });
+
+globals.get_roomid = (location)->
+  if (!location.substr(0,3)=='/r/')
+    console.error('not in room');
+  location.substr(3,location.length)
+
+globals.random = -> crypto.randomBytes(8).toString('hex')
+
+globals.delay = (time, fn)-> setTimeout fn, time
+
+globals.in = (needle, haystack)->
+  for el in haystack
+    return true if `needle == el`
+
+gates = {}
+globals.gate = (key, user, timeout)->
+  timeout = 100 if not timeout
+  gates[key] = {} if not gates[key]
+  return true if gates[key][user]
+  gates[key][user] = 1
+  globals.delay timeout, -> gates[key][user]=0
+  return false

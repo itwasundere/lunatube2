@@ -90,7 +90,7 @@ var main = function() {
 	return bbmodels;
 }
 
-var db = mongoose.createConnection('mongodb://localhost/test');
+var db = mongoose.createConnection('localhost','test');
 db.on('error', console.error.bind(console, 'mongodb:'));
 db.once('open', main);
 

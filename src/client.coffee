@@ -9,7 +9,8 @@ requirejs([
 		schemas = jsyaml.load data
 		window.models = spark schemas
 		requirejs([
-			'player'
+			'player',
+			'api'
 		], ()->
 			requirejs(['main'])
 		)
