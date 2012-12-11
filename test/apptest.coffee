@@ -12,4 +12,3 @@ mongo.init schemas
 spark.store = mongo.store;
 spark.fetch = mongo.fetch;
 spark.query = mongo.query;
-

@@ -16,6 +16,15 @@ app.get('/r/:id', function(req, res){
 	res.render('room.jade');
 });
 
+app.get('/static/icons.css', function(req, res){
+	var sheet = __dirname+'/stylus/icons.css';
+	sheet = stylus(fs.readFileSync(sheet, 'utf8'));
+	sheet.render(function(err,css){
+		res.writeHead(200, {'Content-Type': 'text/css'});
+		res.end(css);
+	});
+});
+
 var themes_name = __dirname+'/res/themes.yaml';
 var themes = yaml.load(fs.readFileSync(themes_name, 'utf8'));
 app.get('/static/room/skin/:theme.css', function(req, res){

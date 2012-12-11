@@ -19,6 +19,7 @@ globals.query = (type, query, res)->
 
 models = {};
 cache = {};
+globals.sparkcache = cache
 save = (inst)->
   globals.store inst, (id)->
     inst._id = id
@@ -61,7 +62,7 @@ globals.gen_class = (name, schema)->
       if _construction and _construction._id
         this._id = _construction._id
         this.load()
-    _links: schema.links
+    _links: schema.links or {}
     _attrs: attrs
     _events: {}
     _type: name
@@ -84,7 +85,6 @@ globals.gen_class = (name, schema)->
         res(data)
     save: ->save(this) if save
     load: ->load(this) if load
-    json: ->{type: this._type, attr: this._attrs}
 
 globals.gen_list = (name, model)->
   class

@@ -58,6 +58,10 @@ globals.get_roomid = (location)->
 
 globals.random = -> crypto.randomBytes(8).toString('hex')
 
+globals.guid = ->
+  s4 = -> Math.floor(Math.random()*0x10000).toString(16);
+  return s4() + s4() + s4() + s4()
+
 globals.delay = (time, fn)-> setTimeout fn, time
 
 globals.in = (needle, haystack)->

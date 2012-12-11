@@ -15,6 +15,9 @@ globals.store = (inst, res)->
 globals.fetch = (inst, res)->
 	return if not id = inst._id
 	globals.models[inst._type].findOne {_id: id}, (err,doc)->
+		if not doc
+			res {}
+			return
 		attrs = {}
 		for k,v of inst._attrs
 			attrs[k] = doc[k]

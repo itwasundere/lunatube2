@@ -11,4 +11,26 @@ socket.emit 'join', {roomid: roomid, cookie: get_cookie 'session'}
 socket.on 'joined', (res)->
 	document.cookie = 'session='+res.cookie
 	for id,obj of res.cache
-		window.cache[id] = new models[obj.type](obj.attrs)
+		continue if id[0] is '_'
+		window.sparkcache[id] = new models[obj.type](obj.attr)
+	window.room = resolve res.roomid
+socket.on 'update', (data)->
+	console.log data
+	res = callbacks[data.hash]
+	res(data.attr) if res
+	delete callbacks[data.hash]
+socket.on 'saved', (data)->
+	console.log data
+	res = callbacks[data.hash]
+	res(data.id)
+
+callbacks = {}
+
+window.store = (inst, res)->
+	hash = guid()
+	callbacks[hash] = res
+	socket.emit 'store', { id: inst._id, type: inst._type, hash: hash, attr: inst._attrs }
+window.fetch = (inst, res)->
+	hash = guid()
+	callbacks[hash] = res
+	socket.emit 'fetch', { id: inst._id, type: inst._type, hash: hash }

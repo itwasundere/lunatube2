@@ -42,6 +42,8 @@
 
   cache = {};
 
+  globals.sparkcache = cache;
+
   save = function(inst) {
     return globals.store(inst, function(id) {
       inst._id = id;
@@ -120,7 +122,7 @@
         }
       }
 
-      _Class.prototype._links = schema.links;
+      _Class.prototype._links = schema.links || {};
 
       _Class.prototype._attrs = attrs;
 
@@ -182,13 +184,6 @@
         if (load) {
           return load(this);
         }
-      };
-
-      _Class.prototype.json = function() {
-        return {
-          type: this._type,
-          attr: this._attrs
-        };
       };
 
       return _Class;

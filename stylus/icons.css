@@ -1,0 +1,16 @@
+body
+	background-color black
+.icon
+	background-image url('icons.png')
+	width 32px
+	height 32px
+	float left
+	background-repeat no-repeat
+	&#pl
+		background-position -32px 0
+	&#cams
+		background-position -64px 0
+	&#prefs
+		background-position -98px 0
+	&#usrs
+		background-position -128px 0

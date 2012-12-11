@@ -73,33 +73,21 @@ body
 		width 427px
 		height 480px
 		#banner
-			#title
-				margin 16px
-				float left
 			#buttons
 				float right
 				div
 					float left
-					height 16px
-					padding 16px
 					&:hover
 						background-color _highlight
 						cursor pointer
 		#messages
-			height 384px
+			height 416px
 			background-color _white
 			color _black
 		#input
-			#avatar
-				float left
-				margin 8px
-				height 32px
-				width 32px
 			input
 				float left
-				width 371px
-				margin 8px
-				margin-left 0px
+				width 427px
 				padding 8px
 				height 32px
 
