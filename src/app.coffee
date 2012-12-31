@@ -1,93 +1,36 @@
-yaml = require('js-yaml');
-fs = require('fs');
-utils = require './lib/utils'
+fs = require 'fs'
+stylus = require 'stylus'
+express = require 'express'
+yaml = require 'js-yaml'
+read = fs.readFileSync
 
-io = require('socket.io').listen(8081);
-mongo = require('./lib/mongo');
-spark = require('./lib/spark');
-utils = require('./lib/utils');
+app = express()
+app.use '/res', express.static process.cwd()+'/res'
+app.use '/lib', express.static process.cwd()+'/lib'
 
-schemas_name = __dirname+'/res/schema.yaml';
-schemas = yaml.load(fs.readFileSync(schemas_name, 'utf8'));
-models = spark.spark(schemas);
-mongo.init schemas
-spark.store = mongo.store;
-spark.fetch = mongo.fetch;
-spark.query = mongo.query;
+app.get '/', (req, res)->
+	res.render 'test.jade'
 
-gen_cache = ->
-	cache = {}
-	cache._ready = 0
-	cache.explored = ->
-		console.log 'k'
-		console.log this._res
-		this._exp = true
-		this._res() if this._res
-	cache.bind = (fn)->
-		fn() if this._exp
-		this._res = fn
-	cache.lock = ->
-		this._ready++
-	cache.free = ->
-		this._ready--
-	cache.freed = -> return this._ready == 0
-	return cache
+app.get '/r/:id', (req, res)->
+	res.render 'room.jade'
 
-explore = (id, type, cache)->
-	cache = gen_cache() if not cache
-	return if not id or not type
-	return if cache[id]
-	cache.lock()
-	inst = spark.resolve id, type
-	inst.bind 'ready', ->
-		return if not inst._id
-		cache[inst._id] = { attr: inst._attrs, type: inst._type }
-		for k,v in inst._links
-			explore(inst._attr[k], v, cache) 
-		cache.free()
-		if cache.freed()
-			cache.explored()
-	return cache
+app.get '/css/icons.css', (req, res)->
+	sheet_name = process.cwd()+'/css/icons.css'
+	sheet = stylus read sheet_name, 'utf8'
+	sheet.render (err, css)->
+		res.writeHead 200, {'Content-Type': 'text/css'}
+		res.end css
 
-session_scheme = spark.gen_class 'session',{attrs:{socket:null,user:null,room:null}}
-session = class extends session_scheme
+app.get '/css/:color.css', (req, res)->
+	themes_name = process.cwd()+'/res/colors.yaml'
+	themes = yaml.load read themes_name, 'utf8'
+	theme = themes[req.params.color] or {}
+	sheet_name = process.cwd()+'/css/room.css'
+	sheet = stylus read sheet_name, 'utf8'
+	for key, value of theme
+		sheet.define '_'+key, new stylus.nodes.Literal '#'+value
+	sheet.render (err, css)->
+		res.writeHead 200, {'Content-Type': 'text/css'}
+		res.end css
 
-logins = {}
-rooms = new models.roomlist
-rooms.all()
-
-io.sockets.on 'connection',(socket)->
-	ip = socket.handshake.address
-	return if utils.gate 'join', ip
-	socket.on 'join', (data)->
-		return if not data or not room = rooms.get(data.roomid)
-		cookie = data.cookie
-		if not user = logins[cookie]
-			user = new models.user
-			cookie = utils.random()
-			logins[cookie] = user
-		sess = new session { user: user, room: room, socket: socket }
-		cache = explore room._id, 'room'
-		cache.bind ->
-			socket.emit 'joined', { 
-				cookie: cookie, 
-				cache: cache,
-				roomid: room._id
-			}
-	socket.on 'fetch', (info)->
-		inst = spark.resolve info.id, info.type
-		inst.bind 'ready', ->
-			socket.emit 'update', {
-				attr: inst._attrs,
-				hash: info.hash
-			}
-	socket.on 'store', (info)->
-		inst = spark.resolve info.id, info.type
-		inst.bind 'ready', ->
-			for k,v of info.attr
-				inst.set k,v
-			inst.save()
-			socket.emit 'saved', {
-				id: inst._id
-				hash: info.hash
-			}
+app.listen 8080

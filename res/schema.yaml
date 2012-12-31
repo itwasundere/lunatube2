@@ -1,13 +1,7 @@
-model:
-view:
- attrs:
-  el: String
 user:
- attrs:
-  username: String
-  password: String
-  avatar: String
+ attrs: [username, password, avatar]
 room:
+ attrs: [state]
  links:
   current: video
   owner: user
@@ -17,9 +11,4 @@ room:
   playlist: videolist
   queue: videolist
 video:
- attrs: 
-  duration: Number
-  vidid: String
-  title: String
-  uploader: String
-  thumb: String
+ attrs: [duration, vidid, title, uploader, thumb]

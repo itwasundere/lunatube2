@@ -1,17 +1,11 @@
-requirejs([
-	'vender/jquery',
-	'vender/socket.io',
-	'vender/js-yaml.min',
-	'spark',
-	'utils'
-], ()->
-	$.get '/static/schema.yaml', (data)->
-		schemas = jsyaml.load data
-		window.models = spark schemas
-		requirejs([
-			'player',
-			'api'
-		], ()->
-			requirejs(['main'])
-		)
-)
+window.socket = io.connect 'http://localhost:8081'
+socket.on 'session', (session)->
+	document.cookie = 'session='+session
+socket.on 'state', (state)->
+	console.log state
+socket.on 'userlist', (info)->
+	console.log info
+socket.on 'playlist', (info)->
+	console.log info
+socket.on 'obj', (info)->
+	console.log info

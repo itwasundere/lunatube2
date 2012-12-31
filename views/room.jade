@@ -1,11 +1,11 @@
 html
 	head
-		script(type="text/javascript", src="/static/vender/require.js")
-		script(type="text/javascript")
-			requirejs.config({ baseUrl: '/static' });
-			requirejs(['client'])
-		link(rel='stylesheet', type='text/css', href='/static/room/skin/luna.css')
-		link(rel='stylesheet', type='text/css', href='/static/icons.css')
+		link(rel='stylesheet', type='text/css', href='/css/icons.css')
+		link(rel='stylesheet', type='text/css', href='/css/luna.css')
+		script(src="/lib/vender/underscore.js")
+		script(src="/lib/vender/backbone.js")
+		script(src="http://localhost:8081/socket.io/socket.io.js")
+		script(src="/lib/client.js")
 	body
 		#templates
 			script#video(type="template")

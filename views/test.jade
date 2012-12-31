@@ -1,7 +1,17 @@
-link(rel='stylesheet', type='text/css', href='/static/icons.css')
-
-.icon#chat
-.icon#playlist
-.icon#cams
-.icon#prefs
-.icon#users
+script(src="http://localhost:8081/socket.io/socket.io.js")
+script(type="text/javascript")
+	window.socket = io.connect('http://localhost:8081');
+	socket.on('session', function(session){
+		document.cookie = 'session='+session});
+	socket.on('state', function(state){
+		console.log(state)
+	});
+	socket.on('userlist', function(info){
+		console.log(info)
+	});
+	socket.on('playlist', function(info){
+		console.log(info)
+	});
+	socket.on('obj', function(info){
+		console.log(info)
+	});
