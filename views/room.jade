@@ -2,9 +2,14 @@ html
 	head
 		link(rel='stylesheet', type='text/css', href='/css/icons.css')
 		link(rel='stylesheet', type='text/css', href='/css/luna.css')
+		script(src="/lib/vender/jquery.js")
+		script(src="/lib/vender/yaml.js")
 		script(src="/lib/vender/underscore.js")
-		script(src="/lib/vender/backbone.js")
 		script(src="http://localhost:8081/socket.io/socket.io.js")
+		script(src="/lib/spark.js")
+		script(src="/lib/cliapi.js")
+		script(src="/lib/clispark.js")
+		script(src="/lib/cliviews.js")
 		script(src="/lib/client.js")
 	body
 		#templates
@@ -18,6 +23,15 @@ html
 						#buttons
 							#play play
 							#remove remove
+			script#message(type="template")
+				#message
+					#avatar
+						img(src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=32")
+					#info
+						div
+							#username [[username]]
+							#timestamp 17:30
+						#content [[content]]
 		#header
 			#title
 				img(src="")

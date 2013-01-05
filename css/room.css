@@ -84,6 +84,7 @@ body
 			height 416px
 			background-color _white
 			color _black
+			overflow-y: scroll
 		#input
 			input
 				float left

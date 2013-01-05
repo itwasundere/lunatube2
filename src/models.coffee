@@ -9,7 +9,6 @@ models.video.extend {
 		return if not this.get 'vidid'
 		url = utils.yt.info this.get 'vidid'
 		video = this
-		console.log url
 		$.get url, (data)->
 			video.set 'title', data.entry.title.$t
 			video.set 'uploader', data.entry.author[0].name.$t

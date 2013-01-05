@@ -42,6 +42,13 @@ incoming_events = {
 		room = db.lookup info.roomid
 		return if not room
 		this.emit 'state', room.state()
+	message: (info)->
+		room = db.lookup info.roomid
+		return if not room
+		room.trigger 'message', {
+			message: info.message
+			user: this.user
+		}
 	playback: (info)->
 		room = db.lookup info.roomid
 		return if not room
@@ -54,11 +61,19 @@ incoming_events = {
 		if info.time and typeof info.time is 'number'
 			return if info.time > current.get time
 			room.seek() info.time
+	query: (info)->
+		obj = db.lookup info.id
+		this.emit 'obj', obj.json() if obj
 	subscribe: (info)->
 		sock = this
 		room = db.lookup info.roomid
 		return if not room
 		room.bind 'changed', -> sock.emit 'state', room.state()
+		room.bind 'message', (info)->
+			sock.emit 'message', {
+				message: info.message
+				user: info.user.id
+			}
 		room.get('playlist').bind 'changed', ->
 			sock.emit 'playlist', room.get('playlist').json()
 		room.get('userlist').bind 'changed', ->
@@ -70,7 +85,7 @@ incoming_events = {
 		room.get('userlist').insert this.user
 	prompt: (info)->
 		this.emit 'obj', db.lookup info.id
-	disonnect: ->
+	disconnect: ->
 		room.get('userlist').remove this.user
 }
 
@@ -82,8 +97,9 @@ io.sockets.on 'connection', (socket)->
 	else 
 		session = utils.random()
 		user = new models.user
-		user.throwaway = true
 		sessions[session] = user
+		user.throwaway = true
+	user.set 'username', 'PleaseStandBy'
 	socket.user = user
 	for event, fn of incoming_events
 		socket.on event, fn
